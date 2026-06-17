@@ -1,4 +1,4 @@
-from __future__ import annotations
+﻿from __future__ import annotations
 
 import json
 import math
@@ -66,6 +66,40 @@ FIXED_LINK: dict[str, dict[str, Any]] = {
     },
 }
 
+RESPONSE_DELAY_FRAMES = 12
+
+PRE_RESPONSE_LINK: dict[str, dict[str, Any]] = {
+    "base_station_outage": {
+        "comm_channel_idx": 5,
+        "carrier_ghz": 3.0,
+        "anti_jamming_mode": "常规模式",
+        "modulation": "QPSK",
+        "bw_mhz": 2.0,
+        "tx_task": "现场图片回传（AI判决延迟）",
+        "snr_db": 7.0,
+        "description": "干扰刚出现，通信仍停留在6号信道，等待AI完成链路判决。",
+    },
+    "rescue_congestion": {
+        "comm_channel_idx": 5,
+        "carrier_ghz": 3.0,
+        "anti_jamming_mode": "常规模式",
+        "modulation": "QPSK",
+        "bw_mhz": 2.0,
+        "tx_task": "多终端图传与状态包（AI判决延迟）",
+        "snr_db": 10.0,
+        "description": "干扰切换到5-6号信道后，通信短暂停留在6号信道并发生重叠。",
+    },
+    "uav_video_pressure": {
+        "comm_channel_idx": 7,
+        "carrier_ghz": 3.5,
+        "anti_jamming_mode": "常规模式",
+        "modulation": "QPSK",
+        "bw_mhz": 2.0,
+        "tx_task": "无人机视频回传（AI判决延迟）",
+        "snr_db": 6.0,
+        "description": "干扰切换到6-9号信道后，通信短暂停留在8号信道并发生重叠。",
+    },
+}
 
 def discrete_affected_channels(channel_idx, bw_mhz, global_cfg):
     n = int(global_cfg["num_channels"])
@@ -198,29 +232,36 @@ def _build_frame(frame, global_cfg, affected, action, link, rng):
 
 def _build_initial_environment(global_cfg):
     rng = random.Random(2026060299)
-    num_channels = int(global_cfg["num_channels"])
-    channel_width_mhz = float(global_cfg["channel_width_hz"]) / 1e6
     jam = {
-        "channel_idx": rng.choice([0, 1, 4, 6, 9]),
-        "waveform_mode": rng.choice([0, 1]),
-        "power_db": rng.choice([5.0, 10.0, 15.0]),
-        "bw_mhz": rng.choice([2, 4]),
+        "channel_idx": 5,
+        "waveform_mode": 0,
+        "power_db": 0.0,
+        "bw_mhz": 2,
     }
     action = {"channel_idx": jam["channel_idx"], "waveform_mode": jam["waveform_mode"],
               "power_db": jam["power_db"], "bw_mhz": jam["bw_mhz"]}
-    affected = discrete_affected_channels(jam["channel_idx"], jam["bw_mhz"], global_cfg)
-    comm_ch = 8 if 8 not in affected else 2
-    link = {"comm_channel_idx": comm_ch, "bw_mhz": 2.0, "snr_db": 24.0}
+    affected = []
+    link = {"comm_channel_idx": 5, "bw_mhz": 2.0, "snr_db": 25.0}
     frames = [_build_frame(i, global_cfg, affected, action, link, rng) for i in range(180)]
     return {
-        "name": "初始随机电磁环境",
-        "short_name": "随机背景",
-        "description": "UI启动后的随机背景态。",
+        "name": "初始无干扰通信环境",
+        "short_name": "无干扰",
+        "description": "UI启动后通信信号位于6号信道，干扰机未发射。",
         "jammer": jam,
         "affected_channels": affected,
         "frames": frames,
     }
 
+
+def _build_scene_frames(global_cfg, sid, affected, action, final_link, rng):
+    frames = []
+    pre_link = PRE_RESPONSE_LINK.get(sid)
+    if pre_link:
+        for i in range(RESPONSE_DELAY_FRAMES):
+            frames.append(_build_frame(i, global_cfg, affected, action, pre_link, rng))
+    for i in range(RESPONSE_DELAY_FRAMES, 180):
+        frames.append(_build_frame(i, global_cfg, affected, action, final_link, rng))
+    return frames
 
 def generate_fixed_link_sequence() -> dict:
     cfg = load_config()
@@ -243,7 +284,7 @@ def generate_fixed_link_sequence() -> dict:
                   "power_db": float(jam["power_db"]), "bw_mhz": int(jam["bw_mhz"])}
         affected = discrete_affected_channels(jam["channel_idx"], jam["bw_mhz"], global_cfg)
         link = FIXED_LINK[sid]
-        frames = [_build_frame(i, global_cfg, affected, action, link, rng) for i in range(180)]
+        frames = _build_scene_frames(global_cfg, sid, affected, action, link, rng)
         sequence["scenarios"][sid] = {
             "scenario_id": sid, "name": scenario["name"],
             "short_name": scenario["short_name"],
@@ -268,3 +309,4 @@ def main() -> None:
 
 if __name__ == "__main__":
     main()
+

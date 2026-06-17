@@ -171,12 +171,12 @@ def main():
     # ═══════════════════════════════════════════════════════════
     jam_ch = [4, 5]
     base_overlap = base_spectrum(5, jam_ch, rng)
-    for f in range(10):
+    for f in range(12):
         timeline.append(_frame("rescue_overlap", f, base_overlap, 5, rng, 10.0, "常规模式", "QPSK", 3.0))
         global_frame += 1
 
     base_hop = base_spectrum(7, jam_ch, rng)
-    for f in range(190):
+    for f in range(188):
         timeline.append(_frame("rescue_recovery", f, base_hop, 7, rng, 24.0, "切频模式", "QPSK", 3.5))
         global_frame += 1
 
@@ -187,12 +187,12 @@ def main():
     # ═══════════════════════════════════════════════════════════
     jam_ch = [5, 6, 7, 8]
     base_overlap = base_spectrum(7, jam_ch, rng)
-    for f in range(10):
+    for f in range(12):
         timeline.append(_frame("uav_overlap", f, base_overlap, 7, rng, 6.0, "常规模式", "QPSK", 3.5))
         global_frame += 1
 
     base_hop = base_spectrum(2, jam_ch, rng)
-    for f in range(200):
+    for f in range(198):
         timeline.append(_frame("uav_recovery", f, base_hop, 2, rng, 24.0, "切频模式", "QPSK", 3.0))
         global_frame += 1
 

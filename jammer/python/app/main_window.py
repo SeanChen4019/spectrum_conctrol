@@ -70,7 +70,7 @@ class MainWindow(QtWidgets.QMainWindow):
             maxlen=self.max_history,
         )
         self.action_history = deque(
-            [{"channel_idx": 0, "bw_mhz": 4} for _ in range(self.max_history)],
+            [{"channel_idx": 0, "bw_mhz": 4, "power_db": 0.0} for _ in range(self.max_history)],
             maxlen=self.max_history,
         )
         self.channel_width_mhz = 2.0
@@ -659,6 +659,8 @@ class MainWindow(QtWidgets.QMainWindow):
             rendered[:, col] = base[:, ch]
 
         for row, action in enumerate(self.action_history):
+            if float(action.get("power_db", 0.0)) <= 0.0:
+                continue
             ch_idx = max(0, min(self.num_channels - 1, int(action.get("channel_idx", 0))))
             bw_mhz = float(action.get("bw_mhz", 2))
             affected_count = max(1, int(round(bw_mhz / self.channel_width_mhz)))
