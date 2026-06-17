@@ -1,0 +1,3 @@
+matplotlib unavailable: No module named 'matplotlib'
+Generated dependency-free fallback PNG: scenario_curves.png
+Blue=SNR, green=throughput, pale red=interference window.

@@ -1,0 +1,101 @@
+{
+  "global": {
+    "frame_interval_s": 0.12,
+    "num_channels": 10,
+    "center_freq_hz": 3000000000.0,
+    "channel_width_hz": 2000000.0,
+    "sample_points": 2048,
+    "waveform_points": 256,
+    "monte_carlo_runs": 30,
+    "default_frames": 260
+  },
+  "scenarios": [
+    {
+      "id": "base_station_outage",
+      "name": "灾后局部基站退服与宽带噪声抬升",
+      "short_name": "基站退服",
+      "seed": 2026060201,
+      "frames": 260,
+      "emergency_context": "灾后公网基站局部退服，临时应急专网承担现场图片与短文本回传。",
+      "business": {
+        "initial_task": "现场图片回传",
+        "fallback_task": "短文本摘要回传",
+        "payload_kbits": 920,
+        "priority": "低速可靠优先"
+      },
+      "jammer": {
+        "channel_idx": 2,
+        "waveform_mode": 0,
+        "power_db": 15.0,
+        "bw_mhz": 8,
+        "start_frame": 25,
+        "stop_frame": 220
+      },
+      "link": {
+        "initial_comm_channel_idx": 2,
+        "base_snr_db": 24.0,
+        "noise_floor_db": -88.0,
+        "decision_snr_threshold_db": 13.5,
+        "critical_snr_db": 10.0
+      }
+    },
+    {
+      "id": "rescue_congestion",
+      "name": "多救援队伍密集接入与多音频点冲突",
+      "short_name": "救援拥塞",
+      "seed": 2026060202,
+      "frames": 260,
+      "emergency_context": "多支救援队伍携带图传、专网手台和传感节点集中接入，局部频点发生冲突。",
+      "business": {
+        "initial_task": "多终端图传与状态包",
+        "fallback_task": "状态包优先回传",
+        "payload_kbits": 1180,
+        "priority": "频点避让与吞吐保持"
+      },
+      "jammer": {
+        "channel_idx": 5,
+        "waveform_mode": 1,
+        "power_db": 10.0,
+        "bw_mhz": 4,
+        "start_frame": 25,
+        "stop_frame": 220
+      },
+      "link": {
+        "initial_comm_channel_idx": 5,
+        "base_snr_db": 25.0,
+        "noise_floor_db": -90.0,
+        "decision_snr_threshold_db": 21.5,
+        "critical_snr_db": 16.0
+      }
+    },
+    {
+      "id": "uav_video_pressure",
+      "name": "无人机视频回传链路高功率压测",
+      "short_name": "无人机压测",
+      "seed": 2026060203,
+      "frames": 280,
+      "emergency_context": "无人机执行灾情侦察，视频回传链路遭遇高功率压制，系统需保障关键画面连续性。",
+      "business": {
+        "initial_task": "无人机视频回传",
+        "fallback_task": "关键帧图片回传",
+        "payload_kbits": 1850,
+        "priority": "画面可用性与恢复速度"
+      },
+      "jammer": {
+        "channel_idx": 7,
+        "waveform_mode": 0,
+        "power_db": 20.0,
+        "bw_mhz": 6,
+        "start_frame": 25,
+        "stop_frame": 245
+      },
+      "link": {
+        "initial_comm_channel_idx": 7,
+        "base_snr_db": 26.0,
+        "noise_floor_db": -89.0,
+        "decision_snr_threshold_db": 17.0,
+        "critical_snr_db": 12.0
+      }
+    }
+  ]
+}

@@ -1,0 +1,12 @@
+PyQt5
+pyqtgraph
+numpy
+anthropic
+openai
+httpx
+certifi
+flask
+flask-cors
+opencv-python
+requests
+matplotlib

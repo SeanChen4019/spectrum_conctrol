@@ -1,0 +1,6 @@
+__pycache__/
+*.pyc
+*.mex*
+.DS_Store
+*.mat
+checkpoints/*.pt.final
