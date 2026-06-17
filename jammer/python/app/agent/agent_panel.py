@@ -96,7 +96,7 @@ class AgentPanel(QtWidgets.QWidget):
         for label, params, tip in [
             (
                 "基站退服",
-                {"channel_idx": 2, "waveform_mode": 0, "power_db": 15.0, "bw_mhz": 8},
+                {"channel_idx": 5, "waveform_mode": 0, "power_db": 15.0, "bw_mhz": 20},
                 "模拟灾后局部基站退服与宽带噪声抬升",
             ),
             (
@@ -106,7 +106,7 @@ class AgentPanel(QtWidgets.QWidget):
             ),
             (
                 "链路压测",
-                {"channel_idx": 7, "waveform_mode": 0, "power_db": 20.0, "bw_mhz": 6},
+                {"channel_idx": 7, "waveform_mode": 0, "power_db": 20.0, "bw_mhz": 8},
                 "对无人机视频回传链路施加高功率干扰压力",
             ),
         ]:
@@ -173,6 +173,7 @@ class AgentPanel(QtWidgets.QWidget):
             ("4MHz", {"bw_mhz": 4}),
             ("6MHz", {"bw_mhz": 6}),
             ("8MHz", {"bw_mhz": 8}),
+            ("20MHz", {"bw_mhz": 20}),
         ]:
             btn = QtWidgets.QPushButton(label)
             btn.setObjectName("QuickCmdBtn")

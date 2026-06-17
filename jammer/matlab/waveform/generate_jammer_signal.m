@@ -3,7 +3,7 @@ function [y, tx_gain] = generate_jammer_signal(action, cfg)
 % action:
 %   channel_idx   - 目标信道 (0-9)
 %   power_db      - 发射功率 (0-20 dB)
-%   bw_mhz        - 干扰带宽 (2/4/6/8 MHz)
+%   bw_mhz        - 干扰带宽 (2/4/6/8/20 MHz)
 %   waveform_mode - 干扰模式 (0=宽带噪声, 1=多音)
 
 N = cfg.sample_num;

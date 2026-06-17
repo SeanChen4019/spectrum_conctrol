@@ -24,15 +24,15 @@
         "priority": "低速可靠优先"
       },
       "jammer": {
-        "channel_idx": 2,
+        "channel_idx": 5,
         "waveform_mode": 0,
         "power_db": 15.0,
-        "bw_mhz": 8,
+        "bw_mhz": 20,
         "start_frame": 25,
         "stop_frame": 220
       },
       "link": {
-        "initial_comm_channel_idx": 2,
+        "initial_comm_channel_idx": 5,
         "base_snr_db": 24.0,
         "noise_floor_db": -88.0,
         "decision_snr_threshold_db": 13.5,
@@ -85,7 +85,7 @@
         "channel_idx": 7,
         "waveform_mode": 0,
         "power_db": 20.0,
-        "bw_mhz": 6,
+        "bw_mhz": 8,
         "start_frame": 25,
         "stop_frame": 245
       },

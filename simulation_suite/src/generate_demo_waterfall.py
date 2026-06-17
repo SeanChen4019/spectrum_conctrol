@@ -159,7 +159,7 @@ def main():
     # Phase 1: 基站退服 — ch5坚守, jam ch0-5 (8MHz宽带)
     #           ch5=黑色重叠, 低速抗扰硬扛
     # ═══════════════════════════════════════════════════════════
-    base = base_spectrum(5, [0, 1, 2, 3, 4, 5], rng)
+    base = base_spectrum(5, list(range(10)), rng)
     for f in range(200):
         timeline.append(_frame("base_station", f, base, 5, rng, 8.5, "低速抗扰模式", "BPSK+扩频", 3.0))
         global_frame += 1

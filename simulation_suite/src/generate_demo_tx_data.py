@@ -25,7 +25,7 @@ SIGNAL_STREAM = (SIGNAL_BYTES * 5)[:N_SIG]  # 420 values
 
 SCENE_FLOW = [
     ("normal",           60,  5,  [],      25.0, "常规模式",    "QPSK/BPSK自适应", 3.0, 14, "救援1.png"),
-    ("base_station",    200,  5,  [0,1,2,3,4,5], 8.5, "低速抗扰模式", "BPSK+扩频",      3.0, 14, "救援2.png"),
+    ("base_station",    200,  5,  [0,1,2,3,4,5,6,7,8,9], 8.5, "低速抗扰模式", "BPSK+扩频",      3.0, 14, "救援2.png"),
     ("rescue_overlap",   10,  5,  [4,5],   10.0, "常规模式",    "QPSK/BPSK自适应", 3.0, 14, "救援3.png"),
     ("rescue_recovery", 190,  7,  [4,5],   24.0, "切频模式",    "QPSK跳频",        3.5, 16, "救援4.png"),
     ("uav_overlap",      10,  7,  [5,6,7,8], 6.0, "增益补偿模式", "QPSK增益提升",    3.5, 22, "救援5.png"),

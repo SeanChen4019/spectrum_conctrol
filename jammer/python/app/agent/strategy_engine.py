@@ -87,7 +87,7 @@ class CommandParser:
         presets = [
             (
                 ("基站退服", "基站损毁", "断站", "宽带抬升", "灾后宽带"),
-                {"channel_idx": 2, "waveform_mode": 0, "power_db": 15.0, "bw_mhz": 8},
+                {"channel_idx": 5, "waveform_mode": 0, "power_db": 15.0, "bw_mhz": 20},
                 "已加载“基站退服/宽带噪声抬升”场景",
             ),
             (
@@ -97,7 +97,7 @@ class CommandParser:
             ),
             (
                 ("链路压测", "视频回传压测", "高功率压制", "极端压测", "强干扰压测"),
-                {"channel_idx": 7, "waveform_mode": 0, "power_db": 20.0, "bw_mhz": 6},
+                {"channel_idx": 7, "waveform_mode": 0, "power_db": 20.0, "bw_mhz": 8},
                 "已加载“无人机视频回传链路压测”场景",
             ),
         ]
@@ -166,9 +166,9 @@ class CommandParser:
         if any(kw in text for kw in ["带宽可以", "带宽能", "支持哪些带宽", "可设置带宽", "干扰带宽有哪些"]):
             return (
                 "**干扰带宽设置**\n\n"
-                "当前系统支持 2/4/6/8 MHz 四档干扰带宽。后端配置中总观测带宽为 20 MHz，"
+                "当前系统支持 2/4/6/8/20 MHz 五档干扰带宽。后端配置中总观测带宽为 20 MHz，"
                 "划分为 10 个信道，因此默认单个信道宽度是 2 MHz。\n\n"
-                "在演示中可直接说：带宽2MHz、带宽4MHz、带宽6MHz、带宽8MHz，"
+                "在演示中可直接说：带宽2MHz、带宽4MHz、带宽6MHz、带宽8MHz、带宽20MHz，"
                 "也可以组合为：切频到信道7，多音，功率15dB，带宽6MHz。"
             )
 
@@ -183,7 +183,7 @@ class CommandParser:
             return (
                 "**带宽显示说明**\n\n"
                 "10信道状态图是离散信道状态图，不是连续频谱瀑布图。此前后端只把目标信道标记为"
-                "被干扰/重叠，所以无论 2/4/6/8 MHz，黑色矩形都只显示一列。\n\n"
+                "被干扰/重叠，所以无论 2/4/6/8/20 MHz，黑色矩形都会按覆盖范围显示。\n\n"
                 "现在黑色干扰覆盖区会以目标信道中心为中心，按设置带宽向左右均匀展开。"
                 "如果 MATLAB 后端已经在运行，需要重启后端脚本才能看到新的覆盖宽度。"
             )
@@ -288,7 +288,7 @@ class CommandParser:
         m = re.search(r'(?:带宽|频宽|覆盖带宽|干扰带宽|bw)\s*[:：]?\s*(\d+)', text, re.IGNORECASE)
         if m:
             bw = int(m.group(1))
-            if bw in (2, 4, 6, 8):
+            if bw in (2, 4, 6, 8, 20):
                 return bw
         return None
 

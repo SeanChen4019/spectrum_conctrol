@@ -687,8 +687,8 @@ class MainWindow(QtWidgets.QMainWindow):
             return "信道必须在 1-10 范围内。"
         if "power_db" in params and not 0 <= float(params["power_db"]) <= 20:
             return "功率必须在 0-20 dB 范围内。"
-        if "bw_mhz" in params and int(params["bw_mhz"]) not in (2, 4, 6, 8):
-            return "带宽必须为 2/4/6/8 MHz。"
+        if "bw_mhz" in params and int(params["bw_mhz"]) not in (2, 4, 6, 8, 20):
+            return "带宽必须为 2/4/6/8/20 MHz。"
         if "waveform_mode" in params and int(params["waveform_mode"]) not in (0, 1):
             return "干扰模式必须为宽带噪声或多音。"
         return None
@@ -762,10 +762,10 @@ class MainWindow(QtWidgets.QMainWindow):
     @staticmethod
     def _fixed_scene_from_params(params: dict) -> str | None:
         if (
-            int(params.get("channel_idx", -1)) == 2
+            int(params.get("channel_idx", -1)) == 5
             and int(params.get("waveform_mode", -1)) == 0
             and float(params.get("power_db", -1)) == 15.0
-            and int(params.get("bw_mhz", -1)) == 8
+            and int(params.get("bw_mhz", -1)) == 20
         ):
             return "base_station_outage"
         if (
@@ -779,7 +779,7 @@ class MainWindow(QtWidgets.QMainWindow):
             int(params.get("channel_idx", -1)) == 7
             and int(params.get("waveform_mode", -1)) == 0
             and float(params.get("power_db", -1)) == 20.0
-            and int(params.get("bw_mhz", -1)) == 6
+            and int(params.get("bw_mhz", -1)) == 8
         ):
             return "uav_video_pressure"
         return None

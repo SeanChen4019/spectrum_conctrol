@@ -73,7 +73,7 @@ UI 返回待执行命令：
 |------|------|------|
 | `channel_idx` | int | 目标信道 0-9 |
 | `power_db` | float | 发射功率 0-20 dB |
-| `bw_mhz` | int | 干扰带宽 2/4/6/8 MHz |
+| `bw_mhz` | int | 干扰带宽 2/4/6/8/20 MHz |
 | `waveform_mode` | int | 干扰模式 0=宽带噪声 1=多音 |
 
 当 `commands` 为空数组时表示无待处理命令。

@@ -76,11 +76,11 @@ function state = apply_command(state, cmd)
     end
     if isfield(cmd, 'bw_mhz')
         val = double(cmd.bw_mhz);
-        if ismember(val, [2, 4, 6, 8])
+        if ismember(val, [2, 4, 6, 8, 20])
             state.prev_action.bw_mhz = val;
             fprintf('[CMD] 调整带宽 -> %d MHz\n', val);
         else
-            fprintf('[CMD] 无效带宽值 %d MHz，忽略 (允许 2/4/6/8)\n', val);
+            fprintf('[CMD] 无效带宽值 %d MHz，忽略 (允许 2/4/6/8/20)\n', val);
         end
     end
     if isfield(cmd, 'waveform_mode')

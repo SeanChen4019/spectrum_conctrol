@@ -68,7 +68,7 @@ TOOL_SET_INTERFERENCE_PARAMS = _tool(
         },
         "bw_mhz": {
             "type": "integer",
-            "description": "干扰带宽 2/4/6/8 MHz，不修改则省略",
+            "description": "干扰带宽 2/4/6/8/20 MHz，不修改则省略",
         },
         "waveform_mode": {
             "type": "integer",
@@ -253,8 +253,8 @@ class ToolHandlers:
             return "信道编号必须在 0-9 之间"
         if "power_db" in params and not 0 <= params["power_db"] <= 20:
             return "发射功率必须在 0-20 dB 之间"
-        if "bw_mhz" in params and params["bw_mhz"] not in (2, 4, 6, 8):
-            return "干扰带宽必须是 2/4/6/8 MHz"
+        if "bw_mhz" in params and params["bw_mhz"] not in (2, 4, 6, 8, 20):
+            return "干扰带宽必须是 2/4/6/8/20 MHz"
         if "waveform_mode" in params and params["waveform_mode"] not in (0, 1):
             return "干扰模式必须是 0=宽带噪声 或 1=多音"
         return None

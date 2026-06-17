@@ -35,7 +35,7 @@ SCENE_NARRATION = {
 # a specific bandwidth, possibly overlapping the jam zone.
 FIXED_LINK: dict[str, dict[str, Any]] = {
     "base_station_outage": {
-        "comm_channel_idx": 2,        # stays on ch2 (same as jammer), demonstrates resilience
+        "comm_channel_idx": 5,        # displayed ch6, stays in place under full-band outage
         "carrier_ghz": 3.0,
         "anti_jamming_mode": "低速抗扰模式",
         "modulation": "BPSK+扩频",
@@ -45,8 +45,8 @@ FIXED_LINK: dict[str, dict[str, Any]] = {
         "description": "宽带噪声环境下，低速抗扰模式以窄带BPSK+扩频维持弱信号回传",
     },
     "rescue_congestion": {
-        "comm_channel_idx": 1,        # hopped from ch5 to ch1 (clean channel, outside affected 4-5)
-        "carrier_ghz": 2.0,
+        "comm_channel_idx": 7,        # displayed ch8, outside affected displayed ch5-6
+        "carrier_ghz": 3.5,
         "anti_jamming_mode": "切频模式",
         "modulation": "QPSK",
         "bw_mhz": 2.0,               # normal bandwidth after successful hop
@@ -55,10 +55,10 @@ FIXED_LINK: dict[str, dict[str, Any]] = {
         "description": "多音冲突环境下，切频至信道2避开干扰，恢复正常吞吐",
     },
     "uav_video_pressure": {
-        "comm_channel_idx": 2,        # hopped from ch7 to ch2 (outside affected 5-8)
+        "comm_channel_idx": 2,        # displayed ch3, outside affected displayed ch6-9
         "carrier_ghz": 3.0,
-        "anti_jamming_mode": "增益补偿模式",
-        "modulation": "QPSK（增益提升）",
+        "anti_jamming_mode": "切频模式",
+        "modulation": "QPSK",
         "bw_mhz": 2.0,               # normal bandwidth, boosted power
         "tx_task": "关键帧图片回传（增益补偿）",
         "snr_db": 24.0,

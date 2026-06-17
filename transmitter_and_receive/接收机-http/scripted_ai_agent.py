@@ -39,15 +39,15 @@ SCENE_SCRIPTS = [
         "confirm_count": 3,
         "anti_jamming_mode": 2,       # 切频模式
         "mode_name": "切频模式",
-        "carrier_select": 1,          # 2.0 GHz (channel 1)
-        "frequency_ghz": 2.0,
+        "carrier_select": 4,          # 3.5 GHz, displayed as channel 8 in the demo
+        "frequency_ghz": 3.5,
         "messages": [
             "⚠️ 信噪比再次异常，频谱中出现多个离散尖峰",
             "🔍 多支救援队伍密集接入，局部频点发生冲突",
             "🔍 判断为救援拥塞场景：强多音干扰覆盖信道5-6区域",
-            "📡 应对策略：切换至【切频模式】，跳频至2.0GHz信道1",
+            "📡 应对策略：切换至【切频模式】，跳频至3.5GHz信道8",
             "📡 避开多音频点冲突区域，在干净信道恢复QPSK正常传输",
-            "✅ 已切换至信道1(2.0GHz)。多终端图传与状态包恢复。正在持续监控…",
+            "✅ 已切换至信道8(3.5GHz)。多终端图传与状态包恢复。正在持续监控…",
         ],
         "delays": [1.2, 1.8, 2.0, 1.5, 1.2, 1.0],
     },
@@ -61,14 +61,14 @@ SCENE_SCRIPTS = [
         "carrier_select": 4,           # 3.5 GHz
         "frequency_ghz": 3.5,
         "messages": [
-            "⚠️ 严重干扰告警！信噪比急速下降，信道7出现高功率宽带压制",
+            "⚠️ 严重干扰告警！信噪比急速下降，信道6-9出现高功率宽带压制",
             "🔍 估算干扰功率约20dB，覆盖6MHz频宽，正在对无人机视频回传实施强力压制",
             "🔍 判断为无人机压测场景。当前视频链路已不可用，需多级应对",
             "📡 第一级：提升发射增益至22dB，尝试维持视频回传",
             "⚠️ 增益提升后信噪比仍不足，高功率压制持续穿过增益余量",
-            "📡 第二级：切换至【切频模式】，跳频至2.5GHz信道2",
+            "📡 第二级：切换至【切频模式】，跳频至3.0GHz信道3",
             "📡 同时业务降级——视频回传转为关键帧图片回传，保障灾情画面连续性",
-            "✅ 链路恢复。当前2.5GHz载波，QPSK模式，关键帧图片回传中。正在持续监控…",
+            "✅ 链路恢复。当前3.0GHz载波，QPSK模式，关键帧图片回传中。正在持续监控…",
         ],
         "delays": [1.2, 2.0, 2.0, 1.5, 1.8, 2.0, 1.5, 1.0],
         # Secondary action: after message index 5, switch to frequency hop
@@ -76,8 +76,8 @@ SCENE_SCRIPTS = [
             "at_message": 5,
             "anti_jamming_mode": 2,
             "mode_name": "切频模式",
-            "carrier_select": 2,       # 2.5 GHz
-            "frequency_ghz": 2.5,
+            "carrier_select": 3,       # 3.0 GHz, displayed as channel 3 in the demo
+            "frequency_ghz": 3.0,
         },
     },
 ]

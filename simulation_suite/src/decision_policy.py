@@ -75,7 +75,7 @@ DEMO_PRESETS: dict[str, dict[str, Any]] = {
         "trigger_frame": 35,          # ~1.2 s after jam starts
         "anti_jamming_mode": 1,
         "anti_jamming_mode_name": "低速抗扰模式",
-        "comm_channel_idx": 2,        # stay on same channel, demonstrate BPSK resilience
+        "comm_channel_idx": 5,        # displayed ch6: stay on the same channel, use robust low-rate mode
         "carrier_ghz": 3.0,
         "redundancy": 1.75,
         "burst_packets": 3,
@@ -90,8 +90,8 @@ DEMO_PRESETS: dict[str, dict[str, Any]] = {
         "trigger_frame": 32,
         "anti_jamming_mode": 2,
         "anti_jamming_mode_name": "切频模式",
-        "comm_channel_idx": 2,        # jump from ch5 to ch2 (clean, outside 4-6 affected)
-        "carrier_ghz": 2.5,
+        "comm_channel_idx": 7,        # displayed ch8: clean channel, outside displayed ch5-6 affected
+        "carrier_ghz": 3.5,
         "redundancy": 1.2,
         "burst_packets": 8,
         "action": "救援拥塞→切频避让：跳频至信道2，规避多音频点冲突",
@@ -111,8 +111,8 @@ DEMO_PRESETS: dict[str, dict[str, Any]] = {
         "second_trigger_frame": 48,
         "second_anti_jamming_mode": 2,
         "second_anti_jamming_mode_name": "切频模式",
-        "second_comm_channel_idx": 3,  # jump to ch3, outside 5-8 affected
-        "second_carrier_ghz": 2.5,
+        "second_comm_channel_idx": 2,  # displayed ch3, outside displayed ch6-9 affected
+        "second_carrier_ghz": 3.0,
         "second_redundancy": 1.2,
         "second_burst_packets": 8,
         "second_action": "无人机压测→增益不足切频：高功率压制持续，跳频信道3",
